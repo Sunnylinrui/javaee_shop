@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.User_Info_Mapper">
+    <update id="deposit">
+        update user_info
+        set user_money = user_money+#{money}
+        where user_id = #{user_id}
+    </update>
+    <update id="buy_vip">
+        update user_info
+        set vip_style = #{vip_style},user_money = user_money-#{money}
+        where user_id = #{user_id}
+    </update>
+    <update id="updatauserinfo">
+        update user_info
+        set user_name = #{user_name},user_phone=#{user_phone},user_sfz=#{user_sfz}
+        where user_id = #{user_id}
+    </update>
+    <update id="updateUserPrice">
+        update user_info
+        set user_money = user_money-${price}
+        where user_id = #{user_id}
+    </update>
+    <select id="getAUser_Info"
+            resultType="com.shop.entity.User_Info">
+        select * from user_info
+        where user_id = #{0} and user_pwd = #{1}
+    </select>
+    <select id="getName" resultType="java.lang.String">
+        select user_name from user_info
+        where user_id = #{user_id}
+    </select>
+    <select id="getvip" resultType="java.lang.String">
+       select vip_name from vip_info
+       where vip_style = #{user_vip}
+    </select>
+    <select id="getvipstyle" resultType="java.lang.Integer">
+         select vip_style from user_info
+        where user_id = #{user_id}
+    </select>
+    <select id="getAUser" resultType="com.shop.entity.User_Info">
+        select * from user_info
+        where user_id = #{user_id}
+    </select>
+    <select id="getVipValue" resultType="java.lang.Integer">
+        select vip_value from vip_info
+        where vip_style = #{vip_style}
+    </select>
+    <select id="getDiscount" resultType="java.lang.Double">
+        select vip_discount from vip_info
+        where vip_style = #{vip_style}
+    </select>
+    <insert id="register" parameterType="com.shop.entity.User_Info">
+        insert into user_info(user_id,user_name,user_pwd,user_phone,user_sfz,user_money,vip_style)
+        values (#{user_id},#{user_name},#{user_pwd},#{user_phone},#{user_sfz},#{user_money},#{vip_style})
+    </insert>
+    <insert id="insertDiscussInfo">
+        insert  into user_info(user_id,user_name,user_phone,user_discuss)
+        value (#{user_id},#{user_name},#{user_phone},#{user_discuss})
+    </insert>
+</mapper>

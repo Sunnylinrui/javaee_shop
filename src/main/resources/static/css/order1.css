@@ -1,0 +1,13 @@
+a{text-decoration: none}
+.title{height: 15%;width:82%;margin-bottom: 15px;margin-left: 135px; }
+.title .titbtn{background-color:#91DBD1;width:20%;height: 100%;float: left;text-align:center;font-size: 20px;line-height:45px;box-shadow: 5px 5px 5px black;}
+.table1{height: 45%;width:82%;margin-bottom: 15px;margin-left: 365px;}
+input{width: 14px;text-align: center;}
+
+.num{display: inline-block;width: 14px;height: 14px;line-height: 14px;text-align: center;
+    font-size: 18px;color: #999;cursor: pointer;border: 1px solid #e6e6e6; background: #e6e6e6;margin: 3px;}
+.add{display: inline-block;width: 14px;height: 14px;line-height: 14px;text-align: center;
+    font-size: 18px;color: #999;cursor: pointer;border: 1px solid #e6e6e6; background: #e6e6e6;margin: 3px;}
+.reduce{display: inline-block;width: 14px;height: 14px;line-height: 14px;text-align: center;
+    font-size: 18px;color: #999;cursor: pointer;border: 1px solid #e6e6e6; background: #e6e6e6;margin: 3px;}
+thead{background-color:#91DBD1;color: #6a6f77}

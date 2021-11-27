@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>查看个人订单</title>
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/table.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.png" type="img/x-icon">
+    <link rel="icon" href="img/favicon.png" type="img/x-icon">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header-->
+    <header class="main-header header-style-four" style="background: #1ebeb6">
+
+        <div class="menu-outer">
+            <!--Main Box-->
+            <div class="auto-container">
+                <div class="main-box">
+                    <div class="logo"><a href="index.html"><img src="img/logo.png" alt="" title=""></a></div>
+
+                    <!--Nav Box-->
+                    <div class="nav-outer">
+                        <!--Mobile Navigation Toggler-->
+                        <div class="mobile-nav-toggler"><span class="icon fa fa-bars"></span></div>
+
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md navbar-light">
+                            <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li><a th:href="@{show_deposit(user_id=${user_info.user_id})}">充值页面</a></li>
+                                    <li><a th:href="@{show_edit_user(user_id=${user_info.user_id})}">修改个人资料</a></li>
+                                    <li><a th:href="@{show_user_order(user_id=${user_info.user_id})}">订单查询</a></li>
+                                    <li><a th:href="@{show_login}">退出登录</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- Main Menu End-->
+
+                        <div class="outer-box">
+                            <!-- Booking Btn -->
+                            <div class="booking-btn">
+                                <a th:href="@{show_main(user_id=${user_info.user_id})}" class="theme-btn btn-style-two">返回主页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Header Lower-->
+        </div>
+
+        <!-- Sticky Header  -->
+        <div class="sticky-header">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <!--Logo-->
+                    <div class="logo">
+                        <a href="index.html" title=""><img src="img/logo-dark.png" alt="" title=""></a>
+                    </div>
+
+                    <!--Right Col-->
+                    <div class="nav-outer">
+                        <!-- Main Menu -->
+                        <nav class="main-menu">
+                            <div class="navbar-collapse show collapse clearfix">
+                                <ul class="navigation clearfix"><!--Keep This Empty / Menu will come through Javascript--></ul>
+                            </div>
+                        </nav><!-- Main Menu End-->
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Sticky Menu -->
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><span class="icon fa fa-times"></span></div>
+
+            <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="index.html"><img src="images/logo-dark.png" alt="" title=""></a></div>
+                <ul class="navigation clearfix"><!--Keep This Empty / Menu will come through Javascript--></ul>
+            </nav>
+        </div><!-- End Mobile Menu -->
+    </header>
+    <!--End Main Header -->
+
+    <!--Page Title-->
+    <section class="page-title" style="background-image:url(img/background/1.jpg);height: 400px">
+        <div class="auto-container">
+        </div>
+    </section>
+
+    <!--End Page Title-->
+    <div  class="shopbox" style="height: 700px">
+        <label th:text="${user_info.user_name}">你好</label>
+
+        <table>
+            <thead>
+            <tr>
+                <th>订单号</th>
+                <th>商品名</th>
+                <th>商品类型</th>
+                <th>下单时间</th>
+                <th>预期收货时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <div th:each="item,itemStat:${order_user_infoList}">
+                <tr>
+                    <td th:text="${item.order_id}"></td>
+                    <td th:text="${item.goods_name}"></td>
+                    <td th:text="${item.room_name}"></td>
+                    <td th:text="${item.book_time}"></td>
+                    <td th:text="${item.leave_time}"></td>
+                    <td th:text="${item.order_state}"></td>
+                    <td><a th:href="@{show_order_info(order_id=${item.order_id},user_id=${user_info.user_id})}">详情</a></td>
+                </tr>
+            </div>
+        </table>
+    </div>
+    <a th:href="@{show_user_info(user_id=${user_info.user_id})}">返回</a>
+    <!-- Contact Section-->
+
+
+
+    <!-- Main Footer -->
+    <footer class="main-footer" style="background: #1ebeb6">
+        <!--Widgets Section-->
+        <div class="widgets-section">
+            <div class="auto-container">
+                <div class="row">
+                    <!--Big Column-->
+                    <div class="big-column col-xl-5 col-lg-12 col-md-12 col-sm-12">
+                        <!--Footer Column-->
+                        <div class="footer-column">
+                            <div class="footer-widget about-widget">
+                                <div class="logo"><a href="index.html"><img src="img/logo.png" alt="" /></a></div>
+                                <div class="text">欢迎来到电子商务平台</div>
+                                <ul class="social-icon-one">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Big Column-->
+                    <div class="big-column col-xl-7 col-lg-12 col-md-12 col-sm-12">
+                        <div class="row">
+                            <!--Footer Column-->
+                            <div class="footer-column col-lg-4 col-md-6 col-sm-12">
+                                <div class="footer-widget">
+                                    <h2 class="widget-title">更多信息</h2>
+                                    <ul class="user-links">
+                                        <li><a href="#">申请开店</a></li>
+                                        <li><a href="about.html">关于我们</a></li>
+                                        <li><a href="#">获取优惠</a></li>
+                                        <li><a href="#">广告招商</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!--Footer Column-->
+                            <div class="footer-column col-lg-4 col-md-6 col-sm-12">
+                                <div class="footer-widget">
+                                    <h2 class="widget-title">保障提供</h2>
+                                    <ul class="user-links">
+                                        <li><a href="#">即时物流</a></li>
+                                        <li><a href="#">贴心服务</a></li>
+                                        <li><a href="#">七天无理由退款</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!--Footer Column-->
+                            <div class="footer-column col-lg-4 col-md-6 col-sm-12">
+                                <!--Footer Column-->
+                                <div class="footer-widget contact-widget">
+                                    <h2 class="widget-title">联系我们</h2>
+                                    <!--Footer Column-->
+                                    <div class="widget-content">
+                                        <ul class="contact-list">
+                                            <li>杭州电子科技大学<br>信息工程学院</li>
+                                            <li><a href="#"> 17857317239</a></li>
+                                            <li><a href="#">190923101</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Bottom-->
+        <div class="footer-bottom" style="background: #1ebeb6">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <div class="copyright-text">
+                        <p>林瑞阳 2021.JavaEE电子商务平台作业</p>
+                    </div>
+
+                    <div class="footer-nav">
+                        <ul class="clearfix">
+                            <li><a href="#">更多信息</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--End Main Footer -->
+
+</div><!-- End Page Wrapper -->
+
+<!-- Scroll To Top -->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+
+<script src="js/jquery.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.fancybox.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/appear.js"></script>
+<script src="js/owl.js"></script>
+<script src="js/validate.js"></script>
+<script src="js/script.js"></script>
+<!--Google Map APi Key-->
+<script src="https://ditu.google.cn/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
+<script src="js/map-script.js"></script>
+<!--End Google Map APi-->
+</body>
+</html>

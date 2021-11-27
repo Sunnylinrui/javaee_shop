@@ -1,0 +1,133 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .title{height:175px;width: 100%;}
+        .name{width: 100%;text-align: right;color: #76D2C5}
+        .menu{width: 20%;height: 600px;margin-left: 25px;float: left;}
+        .main{height: 600px;width: 100%;float:none;}
+        .right{height: 600px;width: 70%;float:left}
+        .up{height: 400px;text-align: center}
+        .down{height: 200px;}
+        input{outline-style: none ;border: 1px solid #ccc;border-radius: 3px;padding: 5px;width: 620px;font-size: 24px;}
+        select{outline-style: none ;border: 1px solid #ccc;border-radius: 3px;padding: 7px;width: 620px;font-size: 15px;}
+        button {width: 180px;height: 50px;border-radius: 25px;margin-top: 50px;font-weight: 700;font-size: 14px;letter-spacing: 1.15px;background-color: #4B70E2;color: #f9f9f9;box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #f9f9f9;border: none;outline: none;}
+    </style>
+    <link href="css/menu.css" rel="stylesheet">
+    <link href="css/table.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+</head>
+
+<body>
+
+<div class="title"  style="background-image:url(img/background/1.jpg)">
+    <div class="name">您好，管理员<label th:text="${admin_info.admin_name}"></label>
+        <br><a th:href="@{show_login}">退出登录</a>
+    </div></div>
+<br>
+
+<div class="main">
+    <div class="menu">
+        <div class="heading"><h2>管理模块</h2></div>
+        <ul class="menu_list">
+
+            <li>
+                <p class="menu_head" th:href="@{show_admin_main(admin_id=${admin_id})}">管理主页</p>
+            </li>
+            <li>
+                <p class="menu_head" th:href="@{show_add(admin_id=${admin_id})}">商品管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_add(admin_id=${admin_id})}">添加新商品</a>
+                    <a th:href="@{show_set_room(admin_id=${admin_id})}">更改商品规格</a>
+                    <a th:href="@{show_money(admin_id=${admin_id})}">查看商品收入</a>
+                </div>
+            </li>
+            <li>
+                <p class="menu_head">公告管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_add_title(admin_id=${admin_id})}">添加新公告</a>
+                    <a th:href="@{show_set_title(admin_id=${admin_id})}">更改公告</a>
+                </div>
+            </li>
+            <li>
+                <p class="menu_head">用户管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_user(admin_id=${admin_id},field_name='all',
+    field_value='', start_page=1, page_size=6)}">进入管理</a>
+                </div>
+            </li>
+            <li>
+                <p class="menu_head">订单管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_order(admin_id=${admin_id},field_name='all',
+    field_value='', start_page=1, page_size=6)}">进入管理</a>
+                </div>
+            </li>
+            <!-- <ul class="menu_list">
+                 <li><a th:href="@{show_admin_main(admin_id=${admin_id})}">管理主页</a></li>
+                 <li>
+                     <p class="menu_head">酒店管理</p>
+                     <div class="menu_body">
+                         <a th:href="@{show_add(admin_id=${admin_id})}">添加新酒店</a>
+                         <a th:href="@{show_set_room(admin_id=${admin_id})}">设置房间数量类型</a>
+                         <a th:href="@{show_money(admin_id=${admin_id})}">查看酒店</a>
+                     </div>
+                 </li>
+                 <li>
+                     <p class="menu_head">用户管理</p>
+                     <div class="menu_body">
+                         <a th:href="@{show_user(admin_id=${admin_id},field_name='all',
+             field_value='', start_page=1, page_size=6)}">用户管理</a>
+                         <a href="#">修改会员信息</a>
+                     </div>
+                 </li>
+                 <li>
+                     <p class="menu_head">订单管理</p>
+                     <div class="menu_body">
+                         <a th:href="@{show_order(admin_id=${admin_id},field_name='all',
+             field_value='', start_page=1, page_size=6)}">订单管理</a>
+                         <a href="#">上班时间</a>
+                     </div>
+                 </li>
+             </ul>
+         --></ul>
+        <script src="js/leftmenu.js"></script>
+
+    </div>
+    <div class="right">
+
+        <div class="up">
+            <p style="font-size: 20px"><label>您现在修改的是</label><label th:text="${goods_info.goods_name}"></label></p><br>
+            <form action="/save_room_num" method="post">
+                <input type="text" maxlength="9" name="admin_id"
+                       th:value="${admin_info.admin_id}" readonly hidden="hidden"/>
+                <input type="text" maxlength="9" th:name="goods_id"
+                       th:value="${goods_info.goods_id}" readonly hidden="hidden"/>
+                <div>商品类型名:<select name="room_style">
+                    <option th:each="item, itemStat: ${room_style_infoList}"
+                            th:value="${item.room_style}" th:text="${item.room_name}">
+                    </option>
+                </select>
+                </div><br>
+                <div>数量：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" maxlength="9" name="room_num"/></div><br>
+                <div>定价：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" maxlength="9" name="room_price"/></div><br>
+                <button type="submit" >确定</button>
+            </form>
+        </div>
+        <div class="down">
+            <div class="shopbox">
+                <table>
+                    <thead><th>商品型号</th><th>商品类型名</th><th>库存数</th><th>商品价格</th></thead>
+                    <tr th:each="item,itemStat:${room_infoList}">
+                        <td th:text="${item.room_style}"></td>
+                        <td th:text="${item.room_name}"></td>
+                        <td th:text="${item.room_num}"></td>
+                        <td th:text="${item.room_price}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

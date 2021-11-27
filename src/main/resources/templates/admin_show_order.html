@@ -1,0 +1,162 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <style>
+        .title{height:175px;width: 100%; }
+        .name{width: 100%;text-align: right;color: #76D2C5}
+        .menu{width: 20%;height: 600px;margin-left: 25px;float: left;}
+        .main{height: 600px;width: 100%;float: none;padding: 20px;}
+        .right{height: 600px;width: 70%;float:left}
+        input{outline-style: none ;border: 1px solid #ccc;border-radius: 3px;padding: 5px;width: 120px;font-size: 24px;}
+        select{outline-style: none ;border: 1px solid #ccc;border-radius: 3px;padding: 7px;width: 120px;font-size: 15px;}
+    </style>
+    <link href="css/menu.css" rel="stylesheet">
+    <link href="css/table.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+</head>
+
+<body>
+<div class="title"  style="background-image:url(img/background/1.jpg)">
+    <div class="name">您好，管理员<label th:text="${admin_info.admin_name}"></label>
+        <br><a th:href="@{show_login}">退出登录</a>
+    </div></div>
+<br>
+
+<div class="main">
+    <div class="menu">
+        <div class="heading"><h2>管理模块</h2></div>
+        <ul class="menu_list">
+
+            <li>
+                <p class="menu_head" th:href="@{show_admin_main(admin_id=${admin_id})}">管理主页</p>
+            </li>
+            <li>
+                <p class="menu_head" th:href="@{show_add(admin_id=${admin_id})}">商品管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_add(admin_id=${admin_id})}">添加新商品</a>
+                    <a th:href="@{show_set_room(admin_id=${admin_id})}">更改商品规格</a>
+                    <a th:href="@{show_money(admin_id=${admin_id})}">查看商品收入</a>
+                </div>
+            </li>
+            <li>
+                <p class="menu_head">公告管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_add_title(admin_id=${admin_id})}">添加新公告</a>
+                    <a th:href="@{show_set_title(admin_id=${admin_id})}">更改公告</a>
+                </div>
+            </li>
+            <li>
+                <p class="menu_head">用户管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_user(admin_id=${admin_id},field_name='all',
+    field_value='', start_page=1, page_size=6)}">进入管理</a>
+                </div>
+            </li>
+            <li>
+                <p class="menu_head">订单管理</p>
+                <div class="menu_body">
+                    <a th:href="@{show_order(admin_id=${admin_id},field_name='all',
+    field_value='', start_page=1, page_size=6)}">进入管理</a>
+                </div>
+            </li>
+            <!-- <ul class="menu_list">
+                 <li><a th:href="@{show_admin_main(admin_id=${admin_id})}">管理主页</a></li>
+                 <li>
+                     <p class="menu_head">酒店管理</p>
+                     <div class="menu_body">
+                         <a th:href="@{show_add(admin_id=${admin_id})}">添加新酒店</a>
+                         <a th:href="@{show_set_room(admin_id=${admin_id})}">设置房间数量类型</a>
+                         <a th:href="@{show_money(admin_id=${admin_id})}">查看酒店</a>
+                     </div>
+                 </li>
+                 <li>
+                     <p class="menu_head">用户管理</p>
+                     <div class="menu_body">
+                         <a th:href="@{show_user(admin_id=${admin_id},field_name='all',
+             field_value='', start_page=1, page_size=6)}">用户管理</a>
+                         <a href="#">修改会员信息</a>
+                     </div>
+                 </li>
+                 <li>
+                     <p class="menu_head">订单管理</p>
+                     <div class="menu_body">
+                         <a th:href="@{show_order(admin_id=${admin_id},field_name='all',
+             field_value='', start_page=1, page_size=6)}">订单管理</a>
+                         <a href="#">上班时间</a>
+                     </div>
+                 </li>
+             </ul>
+         --></ul>
+        <script src="js/leftmenu.js"></script>
+
+    </div>
+
+    <div class="right">
+        <label></label>
+        <form action="show_order" method="post">
+            <select name="field_name">
+                <option value="all" th:selected="${field_name=='all'}">全部</option>
+                <option value="order_id" th:selected="${field_name=='order_id'}">订单号</option>
+                <option value="goods_name" th:selected="${field_name=='goods_name'}">商品名</option>
+                <option value="user_id" th:selected="${field_name=='user_id'}">账号</option>
+                <option value="order_name" th:selected="${field_name=='order_name'}">收货人</option>
+            </select>
+            <input type="text" name="field_value" id="field_value" th:value="${field_value}"/>
+            <input type="hidden" name="start_page" value="1"/>
+            <input type="hidden" name="admin_id" th:value="${admin_id}"/>
+            <input type="hidden" name="page_size" value="10"/>
+            <input type="submit" value="查询"/>
+        </form>
+        <div class="shopbox">
+            <table border="1">
+                <label> 0表示订单进行中，1表示订单已经完成，2表示订单用户取消</label>
+                <tr>
+                <tr><th>订单号</th><th>购买商品</th><th>付款账号</th><th>收货人</th><th>下单时间</th>
+                    <th>付款时间</th><th>预期收货时间</th><th>价格</th><th>状态</th><th>操作</th></tr>
+                <tr th:each="item,itemStat:${order_info_ing_list}">
+                    <td th:text="${item.order_id}"></td>
+                    <td th:text="${item.goods_name}"></td>
+                    <td th:text="${item.user_id}"></td>
+                    <td th:text="${item.order_name}"></td>
+                    <td th:text="${item.order_time}"></td>
+                    <td th:text="${item.book_time}"></td>
+                    <td th:text="${item.leave_time}"></td>
+                    <td th:text="${item.order_price}"></td>
+                    <td th:text="${item.order_state}"></td>
+                    <td><a th:href="@{order_ok(admin_id=${admin_id},field_name='all',
+            field_value='', start_page=1, page_size=12,order_id=${item.order_id},
+            goods_id=${item.goods_id},order_price=${item.order_price})}">完成订单</a></td>
+                </tr>
+                <tr th:each="item,itemStat:${order_info_td_list}">
+                    <td th:text="${item.order_id}"></td>
+                    <td th:text="${item.goods_name}"></td>
+                    <td th:text="${item.user_id}"></td>
+                    <td th:text="${item.order_name}"></td>
+                    <td th:text="${item.order_time}"></td>
+                    <td th:text="${item.book_time}"></td>
+                    <td th:text="${item.leave_time}"></td>
+                    <td th:text="${item.order_price}"></td>
+                    <td th:text="${item.order_state}"></td>
+                    <td><a th:href="@{delete_order_admin(admin_id=${admin_id},field_name='all',
+            field_value='', start_page=1, page_size=12,order_id=${item.order_id})}">删除订单</a></td>
+                </tr>
+                <tr th:each="item,itemStat:${order_info_list}">
+                    <td th:text="${item.order_id}"></td>
+                    <td th:text="${item.goods_name}"></td>
+                    <td th:text="${item.user_id}"></td>
+                    <td th:text="${item.order_name}"></td>
+                    <td th:text="${item.order_time}"></td>
+                    <td th:text="${item.book_time}"></td>
+                    <td th:text="${item.leave_time}"></td>
+                    <td th:text="${item.order_price}"></td>
+                    <td th:text="${item.order_state}"></td>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

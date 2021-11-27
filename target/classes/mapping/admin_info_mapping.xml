@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.Admin_Info_Mapper">
+    <insert id="insertRoom">
+        insert into room_num_info(goods_id,room_style,room_num,room_book_num,room_price)
+        value (#{goods_id},#{room_style},#{room_num},#{room_book_num},#{room_price})
+    </insert>
+    <update id="addGoodsMoney">
+        update goods_info
+        set goods_money = #{order_price}+goods_money
+        where goods_id = #{goods_id}
+    </update>
+    <update id="updateUser" parameterType="com.shop.entity.User_Info">
+        update user_info
+        set user_money = #{user_money},user_phone=#{user_phone},user_sfz=#{user_sfz},
+        user_name=#{user_name},vip_style=#{vip_style},user_pwd=#{user_pwd}
+        where user_id = #{user_id}
+    </update>
+    <update id="setOrderState">
+        update order_info
+        set order_state=1
+        where order_id = #{order_id}
+    </update>
+    <update id="updateRoom">
+        update room_num_info
+        set room_num = #{room_num},room_price=#{room_price}
+        where goods_id = #{goods_id} and room_style = #{room_style}
+    </update>
+    <delete id="delete_user">
+        delete from user_info where user_id = #{user_id}
+    </delete>
+    <delete id="delete_order">
+        delete from order_info where order_id = #{order_id}
+    </delete>
+    <select id="getAAdmin_Info" resultType="com.shop.entity.Admin_Info">
+         select * from admin_info
+        where admin_id = #{0} and admin_pwd = #{1}
+    </select>
+    <select id="getAdmin_Info" resultType="com.shop.entity.Admin_Info">
+        select * from admin_info
+        where admin_id = #{0}
+    </select>
+    <select id="getAllAdmin" resultType="com.shop.entity.Goods_Info">
+        select * from goods_info;
+    </select>
+    <select id="getAllorderInfo" resultType="com.shop.entity.Order_Info">
+        select * from order_info
+        where order_state =1
+        <if test="field_name != 'all' ">
+            and ${field_name} like '%${field_value}%'
+        </if>
+
+    </select>
+    <select id="getAllorderIngInfo" resultType="com.shop.entity.Order_Info">
+        select * from order_info
+        where order_state =0
+        <if test="field_name != 'all' ">
+            and  ${field_name} like '%${field_value}%'
+        </if>
+    </select>
+    <select id="getAllorderTdInfo" resultType="com.shop.entity.Order_Info">
+        select * from order_info
+        where order_state =2
+        <if test="field_name != 'all' ">
+            and ${field_name} like '%${field_value}%'
+        </if>
+    </select>
+    <select id="getAllUserInfo" resultType="com.shop.entity.User_Info">
+        select * from user_info
+        <if test="field_name != 'all' ">
+            ${field_name} like '%${field_value}%'
+        </if>
+    </select>
+    <select id="getAllUser" resultType="com.shop.entity.User_Info">
+        select * from user_info;
+    </select>
+    <select id="getVipList" resultType="com.shop.entity.Vip_Info">
+        select * from vip_info;
+    </select>
+    <select id="getRoomStyle" resultType="com.shop.entity.Room_style_Info">
+        select * from room_style
+    </select>
+    <select id="getRoomInfo" resultType="com.shop.entity.Room_Num_Info">
+        select * from room_num_info
+         where goods_id = #{goods_id}
+    </select>
+    <select id="getAllTitle" resultType="com.shop.entity.Title_Info">
+        select * from title_info;
+    </select>
+    <select id="getTitle_Info" resultType="com.shop.entity.Title_Info">
+        select * from title_info
+        where title_id = #{0}
+    </select>
+    <update id="updateTitle" parameterType="com.shop.entity.Title_Info">
+        update title_info
+        set title_name = #{title_name},title_head=#{title_head},title_message=#{title_message},
+        title_date=#{title_date}
+        where title_id = #{title_id}
+    </update>
+    <select id="getMaxTitleId" resultType="java.lang.Integer">
+        SELECT MAX(title_id) FROM title_info
+    </select>
+    <insert id="insertTitleInfo">
+        insert  into title_info(title_id,title_name,title_head,title_message,title_date)
+        value (#{title_id},#{title_name},#{title_head},#{title_message},#{title_date})
+    </insert>
+    <delete id="delete_title">
+        delete from title_info where title_id = #{title_id}
+    </delete>
+</mapper>

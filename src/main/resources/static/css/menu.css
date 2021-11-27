@@ -1,0 +1,22 @@
+a,article,body,center,div,font,footer,form,h2,header,html,img,p,var{
+    background:transparent;
+    border:0 none;
+    font-size:100%;
+    margin:0;
+    padding:0;
+    border:0;
+}
+
+a{color: #76D2C5;text-decoration: none;}
+a:hover {color: #474747; text-decoration: none;}
+a.button{cursor: pointer;color: #ffffff;line-height: 14px;font-family:"华文行楷";font-size: 14px;font-weight: bold;	border:1px solid #ffffff; display: inline-block;	text-decoration: none;	padding: 6px 12px 6px 12px;}
+
+.menu {margin-bottom:20px; border: 1px solid #EEEEEE; padding: 20px;}
+.menu .heading { padding:5px; text-align: center;}
+.menu ul {list-style-type: none;}
+.menu .menu_head {width: 150px;height: 47px;line-height: 47px;padding-left: 50px;font-size: 17px;color: #91DBD1;cursor: pointer;border: 1px solid #e1e1e1;position: relative;margin: 0px;font-weight: bold;background: #f1f1f1 ;}
+
+.menu .menu_body {width: 180px;height: auto;overflow: hidden;line-height: 38px;border-left: 1px solid #e1e1e1;
+    backguound: #fff;border-right: 1px solid #e1e1e1;padding-left: 20px;}
+.menu .menu_body a {display: block;width: 180px;height: 38px;line-height: 38px;padding-left: 38px;color:#1A9ECC;
+    background: #fff;text-decoration: none;border-bottom: 1px solid #e1e1e1;}

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>订单页面</title>
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/yuding.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.png" type="img/x-icon">
+    <link rel="icon" href="img/favicon.png" type="img/x-icon">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header-->
+    <header class="main-header header-style-four" style="background: #1ebeb6">
+
+        <div class="menu-outer">
+            <!--Main Box-->
+            <div class="auto-container">
+                <div class="main-box">
+                    <div class="logo"><a href="index.html"><img src="img/logo.png" alt="" title=""></a></div>
+
+                    <!--Nav Box-->
+                    <div class="nav-outer">
+                        <!--Mobile Navigation Toggler-->
+                        <div class="mobile-nav-toggler"><span class="icon fa fa-bars"></span></div>
+
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md navbar-light">
+                            <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li><a th:href="@{show_main(user_id=${user_id})}">返回首页</a></li>
+                                    <li><a th:href="@{show_goods_info(goods_id=${goods_info.goods_id},user_id=${user_id})}">商品详情</a></li>
+                                    <li><a th:href="@{show_set_order(user_id=${user_id},goods_id=${goods_info.goods_id})}">前往下单</a></li>
+                                    <li><a th:href="@{show_login}">退出登录</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- Main Menu End-->
+
+                        <div class="outer-box">
+                            <!-- Booking Btn -->
+                            <div class="booking-btn">
+                                <a  th:href="@{show_user_info(user_id=${user_id})}" class="theme-btn btn-style-two">个人中心</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Header Lower-->
+        </div>
+
+        <!-- Sticky Header  -->
+        <div class="sticky-header">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <!--Logo-->
+                    <div class="logo">
+                        <a href="index.html" title=""><img src="img/logo-dark.png" alt="" title=""></a>
+                    </div>
+
+                    <!--Right Col-->
+                    <div class="nav-outer">
+                        <!-- Main Menu -->
+                        <nav class="main-menu">
+                            <div class="navbar-collapse show collapse clearfix">
+                                <ul class="navigation clearfix"><!--Keep This Empty / Menu will come through Javascript--></ul>
+                            </div>
+                        </nav><!-- Main Menu End-->
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Sticky Menu -->
+
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><span class="icon fa fa-times"></span></div>
+
+            <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="index.html"><img src="img/logo-dark.png" alt="" title=""></a></div>
+                <ul class="navigation clearfix"><!--Keep This Empty / Menu will come through Javascript--></ul>
+            </nav>
+        </div><!-- End Mobile Menu -->
+    </header>
+    <!--End Main Header -->
+
+    <!--Page Title-->
+    <section class="page-title" style="background-image:url(img/background/1.jpg)">
+        <div class="auto-container">
+            <h2>下单页面</h2>
+            <ul class="page-breadcrumb">
+                <li><a href="index.html">开始</a></li>
+                <li>下单</li>
+            </ul>
+        </div>
+    </section>
+    <!--End Page Title-->
+
+    <!-- Contact Section-->
+    <section class="contact-section">
+        <div class="auto-container">
+            <div class="row">
+                <!--Column-->
+                <div class="form-column col-lg-8 col-md-12 col-sm-12 order-2">
+                    <div class="inner-column">
+                        <!-- Contact Form -->
+                        <div class="contact-form">
+                            <!--Contact Form-->
+                            <form method="post" action="set_order" id="contact-form">
+                                <div class="row">
+                                    <input name="goods_id" th:value="${goods_id}" type="hidden">
+                                    <input name="user_id" th:value="${user_id}" type="hidden">
+                                    <input name="goods_name" th:value="${goods_info.goods_name}" type="hidden">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <input type="text" maxlength="3" name="book_num" id="book_num" placeholder="收货人昵称" required>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <input type="text" maxlength="15" name="book_phone" id="book_phone" placeholder="收货人电话" th:value="${user_info.user_phone}">
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <input type="text" maxlength="20" name="order_name" id="order_name" placeholder="收货人姓名"  th:value="${user_info.user_name}">
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
+                                        <input type="text" maxlength="20" name="book_sfz" id="book_sfz" placeholder="收货地址" th:value="${user_info.user_sfz}" required>
+                                    </div>
+                                    <label>注：收货人昵称与收货人姓名不同（送货时快递小哥只能看到昵称）</label>
+                                    <div><label>商品类型：</label>
+
+                                        <div th:each="item,itemStat:${book_room_infoList}">
+                                            <label>
+                                                <input  type="radio" name="room_style" th:value="${item.room_style}">
+                                                <label th:text="${item.room_name}"></label>
+                                                <label>剩余:(</label><label th:text="${item.room_book_num}"></label><label>)</label><br>
+                                                <label>价格：</label><label th:text="${item.room_price}"></label>
+                                            </label>
+                                        </div>
+
+                                        <div style="border-bottom: solid 1px #a29d98">
+                                            <label>商品数量:</label>
+                                            <input type="text" maxlength="20" name="book_room_num" id="room_num" placeholder="请填入需购商品数量" required>
+                                        </div>
+                                        <div class="riqi"><label>下单日期：</label>
+                                            <!--           <input id="book_time" type="date" value="2021-06-04" enctype="multipart/form-data"/>-->
+
+                                            <select onchange="setday()" id="year"  name="book_year"></select>年
+                                            <select id="month" onchange="setday()" name="book_month"></select>月
+                                            <select id="day" onchange="setday()" name="book_day"></select>日
+                                        </div>
+                                        <div class="riqi"><label>预期最晚收货日期：</label>
+                                            <select id="YY" onchange="setDays()" name="leave_year"></select>年
+                                            <select id="MM" onchange="setDays()" name="leave_month"></select>月
+                                            <select id="DD" name="leave_day"></select>日
+                                            <!--            <input id="leave_time" type="date"/>-->
+                                        </div>
+                                    </div><br>
+
+
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <button class="theme-btn btn-style-two" type="submit" name="submit-form">确认下单</button>
+
+                                    </div>
+
+                                </div>
+                            </form><br><br>
+                            <a th:href="@{show_goods_list(start_page=1,page_size=6,user_id=${user_id})}">返回</a>
+                        </div>
+                        <!--End Contact Form -->
+
+                        <div class="map-outer">
+                            <div class="map-canvas"
+                                 data-zoom="12"
+                                 data-lat="-37.817085"
+                                 data-lng="144.955631"
+                                 data-type="roadmap"
+                                 data-hue="#ffc400"
+                                 data-title="Envato"
+                                 data-icon-path="img/icons/map-marker.png"
+                                 data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Column-->
+                <div class="info-column col-lg-4 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="contact-block">
+                            <div class="inner-box">
+                                <span class="icon flaticon-phone-call"></span>
+                                <h5>联系电话</h5>
+                                <p><a href="tel:+00352856652"> 352 856 652</a><br><a href="tel:+753225653523"> 225 6535 23</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-block">
+                            <div class="inner-box">
+                                <span class="icon flaticon-placeholder-2"></span>
+                                <h5>产地</h5>
+                                <p th:text="${goods_info.goods_name}"></p><br>
+                                <p th:text="${goods_info.goods_address}"></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-block">
+                            <div class="inner-box">
+                                <span class="icon flaticon-envelope"></span>
+                                <h5>邮箱</h5>
+                                <p><a href="meilto:yourmailname@mail.com">723964802@qq.com</a><br><a href="mailto:yourmailname@mail.com">2905437435@qq.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-block">
+                            <div class="inner-box">
+                                <span class="icon flaticon-worldwide-1"></span>
+                                <h5>社交平台</h5>
+                                <div class="social-links">
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-youtube"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Services Section-->
+
+    <!-- Main Footer -->
+    <footer class="main-footer" style="background: #1ebeb6">
+        <!--Widgets Section-->
+        <div class="widgets-section">
+            <div class="auto-container">
+                <div class="row">
+                    <!--Big Column-->
+                    <div class="big-column col-xl-5 col-lg-12 col-md-12 col-sm-12">
+                        <!--Footer Column-->
+                        <div class="footer-column">
+                            <div class="footer-widget about-widget">
+                                <div class="logo"><a href="index.html"><img src="img/logo.png" alt="" /></a></div>
+                                <div class="text">欢迎来到电子商务平台</div>
+                                <ul class="social-icon-one">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Big Column-->
+                    <div class="big-column col-xl-7 col-lg-12 col-md-12 col-sm-12">
+                        <div class="row">
+                            <!--Footer Column-->
+                            <div class="footer-column col-lg-4 col-md-6 col-sm-12">
+                                <div class="footer-widget">
+                                    <h2 class="widget-title">更多信息</h2>
+                                    <ul class="user-links">
+                                        <li><a href="#">申请开店</a></li>
+                                        <li><a href="about.html">关于我们</a></li>
+                                        <li><a href="#">获取优惠</a></li>
+                                        <li><a href="#">广告招商</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!--Footer Column-->
+                            <div class="footer-column col-lg-4 col-md-6 col-sm-12">
+                                <div class="footer-widget">
+                                    <h2 class="widget-title">保障提供</h2>
+                                    <ul class="user-links">
+                                        <li><a href="#">即时物流</a></li>
+                                        <li><a href="#">贴心服务</a></li>
+                                        <li><a href="#">七天无理由退款</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!--Footer Column-->
+                            <div class="footer-column col-lg-4 col-md-6 col-sm-12">
+                                <!--Footer Column-->
+                                <div class="footer-widget contact-widget">
+                                    <h2 class="widget-title">联系我们</h2>
+                                    <!--Footer Column-->
+                                    <div class="widget-content">
+                                        <ul class="contact-list">
+                                            <li>杭州电子科技大学<br>信息工程学院</li>
+                                            <li><a href="#"> 17857317239</a></li>
+                                            <li><a href="#">190923101</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Bottom-->
+        <div class="footer-bottom" style="background: #1ebeb6">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <div class="copyright-text">
+                        <p>林瑞阳 2021.JavaEE电子商务平台作业</p>
+                    </div>
+
+                    <div class="footer-nav">
+                        <ul class="clearfix">
+                            <li><a href="#">更多信息</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--End Main Footer -->
+
+</div><!-- End Page Wrapper -->
+
+<!-- Scroll To Top -->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+
+<script src="js/jquery.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.fancybox.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/appear.js"></script>
+<script src="js/owl.js"></script>
+<script src="js/validate.js"></script>
+<script src="js/script.js"></script>
+<!--Google Map APi Key-->
+<script src="https://ditu.google.cn/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
+<script src="js/map-script.js"></script>
+<!--End Google Map APi-->
+</body>
+<script type="text/javascript">
+    //把年份加载进去
+    var year = document.getElementById("year");
+    for(var i = 2021 ; i <=2025 ; i ++){
+        var options = document.createElement("option");
+        options.innerHTML = i;
+        year.appendChild(options);
+    }
+</script>
+
+<script type="text/javascript">
+    //把月份加载进去
+    var month = document.getElementById("month");
+    for(var i = 1 ; i <=12 ; i ++){
+        var options = document.createElement("option");
+        options.innerHTML = i;
+        month.appendChild(options);
+    }
+</script>
+
+<script type="text/javascript">
+    //把天数加载进去
+    var day = document.getElementById("day");
+    for(var i = 1 ; i <=31 ; i ++){
+        var options = document.createElement("option");
+        options.innerHTML = i;
+        day.appendChild(options);
+    }
+</script>
+
+<script type="text/javascript">
+
+    //根据年份，判断该月的具体天数，分为闰年
+    function setday(){
+        var specialyear ; //闰年的容器
+
+        var year = document.getElementById("year");
+        var yearIndex = year.selectedIndex;//获取选择年份的位置
+        var yearSelect = year.options[yearIndex].text;//获取具体的年份
+        if((yearSelect%4==0 && yearSelect%100!=0) || yearSelect%400==0)
+            specialyear=yearSelect;//记下闰年
+        // alert(specialyear);
+
+        //获取选择的月份
+        var month = document.getElementById("month");
+        var monthIndex = month.selectedIndex;
+        var monthSelect = month.options[monthIndex].text;
+        // alert(monthSelect);
+
+        //加载天数
+        var day = document.getElementById("day");
+        day.options.length=0;
+        //alert(monthSelect);
+        if(monthSelect=='1'||monthSelect=='3'||monthSelect=='5'||monthSelect=='7'||monthSelect=='8'||monthSelect=='10'||monthSelect=='12'){//这里数字要加引号
+            for(var i = 1 ; i <=31 ; i ++){
+                var options = document.createElement("option");
+                options.innerHTML = i ;
+                day.appendChild(options);
+            }
+        }
+        // alert("day22");
+        if(monthSelect=='2'||monthSelect=='4'||monthSelect=='6'||monthSelect=='9'&&monthSelect=='11'){
+            if(yearSelect==specialyear && monthSelect=='2') {
+                for(var i = 1 ; i <=28 ; i ++){
+                    var options = document.createElement("option");
+                    options.innerHTML = i ;
+                    day.appendChild(options);
+                }
+            } else{
+                for(var i = 1 ; i <=30 ; i ++){
+                    var options = document.createElement("option");
+                    options.innerHTML = i ;
+                    day.appendChild(options);
+                }
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    window.onload=function(){
+
+        var YY = document.getElementById("YY");
+
+        var date = new Date();
+
+        var nowYear = date.getFullYear();
+
+        for(var i=nowYear;i>nowYear-100;i--){
+
+            var optionYear = document.createElement("option");
+
+            optionYear.innerHTML=i;
+
+            optionYear.value=i;
+
+            YY.appendChild(optionYear);
+
+        }
+
+        var MM = document.getElementById("MM");
+
+        for(var i=1;i<=12;i++){
+
+            var optionMonth = document.createElement("option");
+
+            optionMonth.innerHTML=i;
+
+            optionMonth.value=i;
+
+            MM.appendChild(optionMonth);
+
+        }
+
+        setDays();
+
+    }// 获取某年某月存在多少天
+
+    function getDaysInMonth(){
+
+        var year=getYear();
+
+        var month=getMonth();
+
+        var days;
+
+        if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12){
+
+            days=31;
+
+        }else if (month==4 || month==6 || month==9 || month==11){
+
+            days=30;
+
+        }else{
+
+            if ((year%4 == 0)&& (year%100 != 0) || (year%400 == 0)) {
+                days=29;
+            }else {
+                days=28;
+            }
+        }
+        return days;
+    }
+
+    function getYear(){
+
+        var YY = document.getElementById("YY");
+
+        var year = YY.options[YY.selectedIndex].value;
+
+        return year;
+
+    }
+
+    function getMonth(){
+
+        var MM = document.getElementById("MM");
+
+        var month = MM.options[MM.selectedIndex].value;
+
+        return month;
+
+    }
+
+    function setDays(){
+
+        var DD=document.getElementById("DD");
+
+        var days = getDaysInMonth();
+
+        DD.options.length = 0;
+
+        for(var i=1;i<=days;i++){
+
+            var optionDay = document.createElement("option");
+
+            optionDay.innerHTML=i;
+
+            optionDay.value=i;
+
+            DD.appendChild(optionDay);
+
+        }
+
+    }
+</script>
+</html>

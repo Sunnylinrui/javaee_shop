@@ -1,0 +1,78 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>销售额查询</title>
+    <style>
+        .title{height:175px;width: 100% }
+        .name{width: 100%;text-align: right;color: #76D2C5}
+        .menu{width: 20%;height: 600px;margin-left: 25px;float: left;}
+        .main{height: 600px;width: 70%;float: right;padding: 20px;}
+    </style>
+    <link href="css/menu.css" rel="stylesheet">
+    <link href="css/table.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+</head>
+
+<body>
+<div class="title"  style="background-image:url(img/background/1.jpg)">
+    <div class="name">您好，管理员<label th:text="${admin_info.admin_name}"></label>
+        <br><a th:href="@{show_login}">退出登录</a>
+    </div></div>
+<br>
+
+<div class="menu">
+    <div class="heading"><h2>管理模块</h2></div>
+    <ul class="menu_list">
+
+        <li>
+            <p class="menu_head" th:href="@{show_admin_main(admin_id=${admin_id})}">管理主页</p>
+        </li>
+        <li>
+            <p class="menu_head" th:href="@{show_add(admin_id=${admin_id})}">商品管理</p>
+            <div class="menu_body">
+                <a th:href="@{show_add(admin_id=${admin_id})}">添加新商品</a>
+                <a th:href="@{show_set_room(admin_id=${admin_id})}">更改商品规格</a>
+                <a th:href="@{show_money(admin_id=${admin_id})}">查看商品收入</a>
+            </div>
+        </li>
+        <li>
+            <p class="menu_head">公告管理</p>
+            <div class="menu_body">
+                <a th:href="@{show_add_title(admin_id=${admin_id})}">添加新公告</a>
+                <a th:href="@{show_set_title(admin_id=${admin_id})}">更改公告</a>
+            </div>
+        </li>
+        <li>
+            <p class="menu_head">用户管理</p>
+            <div class="menu_body">
+                <a th:href="@{show_user(admin_id=${admin_id},field_name='all',
+    field_value='', start_page=1, page_size=6)}">进入管理</a>
+            </div>
+        </li>
+        <li>
+            <p class="menu_head">订单管理</p>
+            <div class="menu_body">
+                <a th:href="@{show_order(admin_id=${admin_id},field_name='all',
+    field_value='', start_page=1, page_size=6)}">进入管理</a>
+            </div>
+        </li>
+    </ul>
+    <script src="js/leftmenu.js"></script>
+</div>
+
+<div class="main">
+    <div class="shopbox">
+        <table>
+            <thead>
+            <tr><th>商品编号</th><th>商品名</th><th>营收额</th></tr>
+            <tr th:each="item,itemStat:${goods_infoList}">
+                <td th:text="${item.goods_id}"></td>
+                <td th:text="${item.goods_name}"></td>
+                <td th:text="${item.goods_money}"></td>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+</body>
+</html>

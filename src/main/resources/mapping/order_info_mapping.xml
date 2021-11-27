@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.Order_Info_Mapper">
+    <insert id="insert">
+        insert  into order_info(order_id,user_id,goods_id,room_style,room_num,book_num,book_phone,order_name,order_time,book_time,leave_time,book_sfz,order_price,order_state,goods_name)
+        value (#{order_id},#{user_id},#{goods_id},#{room_style},#{room_num},#{book_num},#{book_phone},#{order_name},#{order_time},#{book_time},#{leave_time},#{book_sfz},#{order_price},#{order_state},#{goods_name})
+    </insert>
+    <update id="addMoney">
+        update user_info
+        set user_money = user_money+#{money}
+        where user_id = #{user_id}
+    </update>
+    <update id="setTD">
+        update order_info
+        set order_state = 2
+        where order_id = #{order_id}
+    </update>
+    <delete id="deleteOrder">
+        delete from order_info where order_id = #{order_id}
+    </delete>
+
+    <select id="getMaxId" resultType="java.lang.Integer">
+        SELECT MAX(order_id) FROM order_info
+    </select>
+    <select id="getUserOrder" resultType="com.shop.entity.Order_Info">
+        select * from order_info
+         where user_id = #{user_id}
+    </select>
+    <select id="getAOrder" resultType="com.shop.entity.Order_Info">
+        select * from order_info
+         where order_id = #{order_id}
+    </select>
+</mapper>
