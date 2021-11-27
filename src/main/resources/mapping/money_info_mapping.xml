@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.Money_Info_Mapper">
+
+    <insert id="insertMoney" parameterType="com.shop.entity.Money_info">
+        insert into money_info(money)
+        value (#{money})
+    </insert>
+
+    <select id="deleteMoney" parameterType="com.shop.entity.Money_info">
+        truncate table money_info
+    </select>
+    <select id="getMoney" resultType="com.shop.entity.Money_info">
+        select * from money_info;
+    </select>
+</mapper>

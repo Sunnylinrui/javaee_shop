@@ -1,0 +1,18 @@
+.Tit{height: 80px;width:1050px;padding: 25px;margin-left: 25px;}
+.Tit .logo{float: left;}
+.Tit .car{height: 25px; width: 100%; float: right;text-align: right}
+.geduan{width: 1100px;height: 15px; border-radius: 5px;background-color: #faff6d;margin-bottom: 15px;}
+/*.img{height:361px;width:1200px;margin-bottom:25px;}*/
+.main{height: 1100px; width: 1100px;margin-left: 150px;border-radius: 45px;
+    padding-left: 45px;padding-right: 45px;padding-top: 15px;border: 3px solid #dece7f;display: flex;flex-direction:row;flex-flow: wrap;}
+.main .left{height: 90%;width: 68%;border: 3px solid #dece7f;padding: 15px;
+    display: flex;flex-direction:row;flex-flow: wrap;}
+.main .left .info{height: 475px;width: 230px;border: 2px solid #dece7f;margin-right: 15px; overflow: hidden}
+.main .left .info .img{position: relative;top:2%;left: 5%;width: 90%;height: 350px;border: 1px solid black; overflow: hidden;}
+.main .right{height: 90%;width: 24%;border: 3px solid #dece7f;padding: 15px;float: right;}
+.add{height: 35px;width: 100px;border: 1px solid #dece7f;color: #dece7f }
+.main .right .table{height: 80px;width: 90%;margin-left: 15px;border: 3px solid #dece7f;
+    padding-top:5px;padding-left: 15px;}
+.main .right .main_shuai{height: 700px;border: 3px solid #dece7f; width: 80%;margin-top: 50px;padding-top: 15px;}
+.main .right .main_shuai .titleshuai{height: 75px;padding-top: 20px;width: 80%;font-size: 26px;}
+.main .right .main_shuai .shuai{height: 50px;border-bottom: 3px solid #dece7f; width: 80%;}

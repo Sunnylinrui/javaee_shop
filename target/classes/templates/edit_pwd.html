@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+</head>
+<body>
+<form action="edit_user_pwd" method="post">
+
+    <div>
+        <div>
+            <p><b>原密码：</b><input type="text" maxlength="8" name="user_pwd" id="user_pwd"/></p>
+        </div>
+        <div>
+            <p><b>新密码：</b><input type="text" maxlength="15" name="new_pwd" id="u=new_pwd"/></p>
+        </div>
+        <div><input type="submit" value="修改完成"  class="btn1"/></div>
+        <a th:href="@{show_user_info(user_id=${user_id})}">返回</a>
+    </div>
+</form>
+</body>
+</html>

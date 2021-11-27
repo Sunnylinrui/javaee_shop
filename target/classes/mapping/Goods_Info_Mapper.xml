@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.Goods_Info_Mapper">
+    <insert id="insertGoodsInfo">
+        insert  into goods_info(goods_id,goods_name,goods_address,goods_score,goods_img,goods_introduction,goods_money)
+        value (#{goods_id},#{goods_name},#{goods_address},#{goods_score},#{goods_img},#{goods_introduction},#{goods_money})
+    </insert>
+    <update id="updateRoomNum">
+        update room_num_info
+        set room_book_num = room_book_num+#{book_room_num}
+        where goods_id = #{goods_id} and room_style = #{room_style}
+    </update>
+    <select id="getGoodsList" resultType="com.shop.entity.Goods_Info" >
+        select * from goods_info order by goods_score desc limit #{start},#{page_size}
+    </select>
+    <select id="getGoodsListSelect" resultType="com.shop.entity.Goods_Info" >
+        select * from goods_info
+        where goods_score=#{goods_score}
+        order by goods_score desc limit #{start},#{page_size}
+    </select>
+    <select id="getAGoodsInfo" resultType="com.shop.entity.Goods_Info">
+        select * from goods_info
+        where goods_id = #{goods_id}
+    </select>
+    <select id="getRoomNumList" resultType="com.shop.entity.Room_Num_Info">
+        select * from room_num_info
+        where goods_id = #{goods_id}
+    </select>
+    <select id="getStyle" resultType="java.lang.Integer">
+         select COUNT(*) from room_style
+    </select>
+    <select id="getRoomName" resultType="java.lang.String">
+        select room_name from room_style
+        where room_style = #{room_style}
+    </select>
+    <select id="getRoomPrice" resultType="java.lang.Integer">
+        select room_price from room_num_info
+        where room_style = #{room_style} and goods_id=#{goods_id}
+    </select>
+    <select id="getGoodsMonPrice" resultType="java.lang.Integer">
+        select goods_mon_price from goods_info
+        where  goods_id=#{goods_id}
+    </select>
+    <select id="getMaxGoodsId" resultType="java.lang.Integer">
+        SELECT MAX(goods_id) FROM goods_info
+    </select>
+</mapper>
